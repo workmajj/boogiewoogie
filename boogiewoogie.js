@@ -1,26 +1,30 @@
 var BoogieWoogie = function(opts) {
     var defaults = {
-        file: 'source.png',
-        canvasId: 'canvas'
+        canvasId: 'canvas',
+        imgFile: 'source.png'
     };
 
     this.opts = extend(defaults, opts);
 
-    var canvas = document.getElementById(this.opts.canvasId);
-    if (!canvas) throw new Error("Could not get canvas element");
-    var ctx = canvas.getContext('2d');
-
-    var img = new Image();
-    img.src = this.opts.file;
-    img.onload = function() {
-        canvas.setAttribute('width', img.width);
-        canvas.setAttribute('height', img.height);
-        ctx.drawImage(img, 0, 0);
-    };
+    this._load(this.opts.canvasId, this.opts.imgFile);
 };
 
 BoogieWoogie.prototype = {
-    opts: null
+    opts: null,
+
+    _load: function(canvasId, imgFile) {
+        var canvas = document.getElementById(canvasId);
+        if (!canvas) throw new Error("Could not get canvas element");
+        var ctx = canvas.getContext('2d');
+
+        var img = new Image();
+        img.src = imgFile;
+        img.onload = function() {
+            canvas.setAttribute('width', img.width);
+            canvas.setAttribute('height', img.height);
+            ctx.drawImage(img, 0, 0);
+        };
+    }
 };
 
 ////////////////////////////////////////////////////////////////////////////////
