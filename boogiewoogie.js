@@ -1,3 +1,13 @@
+function extend(orig, delta) {
+    var obj = JSON.parse(JSON.stringify(orig)); // copy
+    for (var i in delta) {
+        if (delta.hasOwnProperty(i)) obj[i] = delta[i];
+    }
+    return obj;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 var BoogieWoogie = function(opts) {
     var defaults = {
         canvasId: 'canvas',
@@ -26,13 +36,3 @@ BoogieWoogie.prototype = {
         };
     }
 };
-
-////////////////////////////////////////////////////////////////////////////////
-
-function extend(orig, delta) {
-    var obj = JSON.parse(JSON.stringify(orig)); // copy
-    for (var i in delta) {
-        if (delta.hasOwnProperty(i)) obj[i] = delta[i];
-    }
-    return obj;
-}
