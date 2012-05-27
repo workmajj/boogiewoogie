@@ -18,30 +18,38 @@ var BoogieWoogie = function(opts) {
     this.opts = extend(defaults, opts);
 
     if (!this.opts.imgSrc || !this.opts.imgType) {
-        throw new Error("No image source or image type set");
+        throw new Error('No image source or image type set');
     }
 
-    this.init();
+    this._load();
 };
 
 BoogieWoogie.prototype = {
     opts: null,
 
-    init: function() {
+    _load: function() {
         var canvas = document.getElementById(this.opts.canvasId);
-        if (!canvas) throw new Error("Could not get canvas element");
+        if (!canvas) throw new Error('Could not get canvas element');
         var ctx = canvas.getContext('2d');
 
         var img = new Image();
-        img.src = 'data:image/' + this.opts.imgType + ';base64,' +
-            this.opts.imgSrc; // source is base64-encoded
+        img.src = 'data:image/' + this.opts.imgType +
+            ';base64,' + this.opts.imgSrc; // source is base64-encoded
         img.onload = function() {
             canvas.setAttribute('width', img.width);
             canvas.setAttribute('height', img.height);
             ctx.drawImage(img, 0, 0);
 
             var d = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            console.log(d.data);
+
+            for (var i = 0, l = d.data.length; i < l; i += 4) {
+                var r = d.data[i];
+                var g = d.data[i + 1];
+                var b = d.data[i + 2];
+                var a = d.data[i + 3];
+
+                console.log('i=' + i, r, g, b, a);
+            }
         };
     }
 };
