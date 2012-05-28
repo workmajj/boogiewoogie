@@ -33,23 +33,31 @@ BoogieWoogie.prototype = {
         var ctx = canvas.getContext('2d');
 
         var img = new Image();
-        img.src = 'data:image/' + this.opts.imgType +
-            ';base64,' + this.opts.imgSrc; // source is base64-encoded
+        img.src = 'data:image/' + this.opts.imgType + ';base64,' +
+            this.opts.imgSrc; // source is base64-encoded
+
+        var that = this;
         img.onload = function() {
             canvas.setAttribute('width', img.width);
             canvas.setAttribute('height', img.height);
+
             ctx.drawImage(img, 0, 0);
 
             var d = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-            for (var i = 0, l = d.data.length; i < l; i += 4) {
-                var r = d.data[i];
-                var g = d.data[i + 1];
-                var b = d.data[i + 2];
-                var a = d.data[i + 3];
-            }
-            
-            console.log("done");
+            that._canvasToPiet(d);
         };
+    },
+
+    _canvasToPiet: function(d) {
+        for (var i = 0, l = d.data.length; i < l; i += 4) {
+            var r = d.data[i];
+            var g = d.data[i + 1];
+            var b = d.data[i + 2];
+            var a = d.data[i + 3];
+
+            console.log('i=' + i, r, g, b, a);
+        }
+
+        console.log('done');
     }
 };
