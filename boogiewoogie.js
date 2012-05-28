@@ -47,9 +47,9 @@ BoogieWoogie.prototype = {
                 var g = d.data[i + 1];
                 var b = d.data[i + 2];
                 var a = d.data[i + 3];
-
-                console.log('i=' + i, r, g, b, a);
             }
+            
+            console.log("done");
         };
     }
 };
