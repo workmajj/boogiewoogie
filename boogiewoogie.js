@@ -9,7 +9,9 @@ var BoogieWoogie = function(cfg) {
         throw new Error('No image source or image type set');
     }
 
-    this.stack = []; // TODO: move this to run/init once built
+    // TODO: move this to run/init once built
+    this.stack = [];
+    this.val = 0;
 
     this._load();
 };
