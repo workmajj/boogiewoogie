@@ -63,21 +63,64 @@ BoogieWoogie.prototype._canvasToPiet = function(d) {
 };
 
 BoogieWoogie.prototype.ops = {
-    pus: function() {},
-    pop: function() {},
-    add: function() {},
-    sub: function() {},
-    mul: function() {},
-    div: function() {},
-    mod: function() {},
-    not: function() {},
-    grt: function() {},
+    pus: function() { // push
+        this.stack.push(this.val);
+    },
+    pop: function() { // pop
+        if (this.stack.length < 1) return false;
+        this.stack.pop();
+        return true;
+    },
+    add: function() { // add
+        if (this.stack.length < 2) return false;
+        this.stack.push(this.stack.pop() + this.stack.pop());
+        return true;
+    },
+    sub: function() { // subtract
+        if (this.stack.length < 2) return false;
+        var tmp = this.stack.pop();
+        this.stack.push(this.stack.pop() - tmp);
+        return true;
+    },
+    mul: function() { // multiply
+        if (this.stack.length < 2) return false;
+        this.stack.push(this.stack.pop() * this.stack.pop());
+        return true;
+    },
+    div: function() { // divide
+        if (this.stack.length < 2) return false;
+        var tmp = this.stack.pop();
+        this.stack.push(Math.round(this.stack.pop() / tmp));
+        return true;
+    },
+    mod: function() { // modulo
+        if (this.stack.length < 2) return false;
+        var tmp = this.stack.pop();
+        this.stack.push(this.stack.pop() % tmp);
+        return true;
+    },
+    not: function() { // not
+        if (this.stack.length < 1) return false;
+        if (this.stack.pop() !== 0) this.stack.push(0);
+        else this.stack.push(1);
+        return true;
+    },
+    grt: function() { // greater
+        if (this.stack.length < 2) return false;
+        var tmp = this.stack.pop();
+        this.stack.push(this.stack.pop() > tmp ? 1 : 0);
+        return true;
+    },
     poi: function() {},
     swi: function() {},
-    dup: function() {},
+    dup: function() { // duplicate
+        if (this.stack.length < 1) return false;
+        this.stack.push(this.stack[this.stack.length - 1]);
+        return true;
+    },
     rol: function() {},
     inn: function() {},
     inc: function() {},
-    ouc: function() {},
-    oun: function() {}
+    oun: function() {},
+    ouc: function() {}
 };
