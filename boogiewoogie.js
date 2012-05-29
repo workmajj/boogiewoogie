@@ -67,60 +67,90 @@ BoogieWoogie.prototype.ops = {
         this.stack.push(this.val);
         return true;
     },
+
     pop: function() { // pop
         if (this.stack.length < 1) return false;
         this.stack.pop();
         return true;
     },
+
     add: function() { // add
         if (this.stack.length < 2) return false;
         this.stack.push(this.stack.pop() + this.stack.pop());
         return true;
     },
+
     sub: function() { // subtract
         if (this.stack.length < 2) return false;
         var tmp = this.stack.pop();
         this.stack.push(this.stack.pop() - tmp);
         return true;
     },
+
     mul: function() { // multiply
         if (this.stack.length < 2) return false;
         this.stack.push(this.stack.pop() * this.stack.pop());
         return true;
     },
+
     div: function() { // divide
         if (this.stack.length < 2) return false;
         var tmp = this.stack.pop();
         this.stack.push(Math.round(this.stack.pop() / tmp));
         return true;
     },
+
     mod: function() { // modulo
         if (this.stack.length < 2) return false;
         var tmp = this.stack.pop();
         this.stack.push(this.stack.pop() % tmp);
         return true;
     },
+
     not: function() { // not
         if (this.stack.length < 1) return false;
         this.stack.push(this.stack.pop() !== 0 ? 0 : 1);
         return true;
     },
+
     grt: function() { // greater
         if (this.stack.length < 2) return false;
         var tmp = this.stack.pop();
         this.stack.push(this.stack.pop() > tmp ? 1 : 0);
         return true;
     },
-    poi: function() {},
-    swi: function() {},
+
+    poi: function() { // pointer
+        return; // TODO
+    },
+
+    swi: function() { // switch
+        return; // TODO
+    },
+
     dup: function() { // duplicate
         if (this.stack.length < 1) return false;
         this.stack.push(this.stack[this.stack.length - 1]);
         return true;
     },
-    rol: function() {},
-    inn: function() {},
-    inc: function() {},
-    oun: function() {},
-    ouc: function() {}
+
+    rol: function() { // roll
+        return; // TODO
+    },
+
+    inn: function() { // in (number)
+        return; // TODO
+    },
+
+    inc: function() { // in (char)
+        return; // TODO
+    },
+
+    oun: function() { // out (number)
+        return; // TODO
+    },
+
+    ouc: function() { // out (char)
+        return; // TODO
+    }
 };
