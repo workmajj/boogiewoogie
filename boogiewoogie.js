@@ -65,6 +65,7 @@ BoogieWoogie.prototype._canvasToPiet = function(d) {
 BoogieWoogie.prototype.ops = {
     pus: function() { // push
         this.stack.push(this.val);
+        return true;
     },
     pop: function() { // pop
         if (this.stack.length < 1) return false;
