@@ -1,19 +1,9 @@
-function extend(orig, delta) {
-    var obj = JSON.parse(JSON.stringify(orig)); // copy
-    for (var i in delta) {
-        if (delta.hasOwnProperty(i)) obj[i] = delta[i];
-    }
-    return obj;
-}
-
 var BoogieWoogie = function(cfg) {
-    var defaults = {
+    this.cfg = this.extend({
         imgSrc: null,
         imgType: null,
         canvasId: 'program'
-    };
-
-    this.cfg = extend(defaults, cfg);
+    }, cfg);
 
     if (!this.cfg.imgSrc || !this.cfg.imgType) {
         throw new Error('No image source or image type set');
@@ -28,6 +18,14 @@ BoogieWoogie.prototype = {
     cfg: null,
     stack: null,
     val: null // current color block value
+};
+
+BoogieWoogie.prototype.extend = function(orig, delta) {
+    var obj = JSON.parse(JSON.stringify(orig));
+    for (var i in delta) {
+        if (delta.hasOwnProperty(i)) obj[i] = delta[i];
+    }
+    return obj;
 };
 
 BoogieWoogie.prototype._load = function() {
