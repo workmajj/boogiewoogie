@@ -6,18 +6,16 @@ function extend(orig, delta) {
     return obj;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-var BoogieWoogie = function(opts) {
+var BoogieWoogie = function(cfg) {
     var defaults = {
         imgSrc: null,
         imgType: null,
         canvasId: 'program'
     };
 
-    this.opts = extend(defaults, opts);
+    this.cfg = extend(defaults, cfg);
 
-    if (!this.opts.imgSrc || !this.opts.imgType) {
+    if (!this.cfg.imgSrc || !this.cfg.imgType) {
         throw new Error('No image source or image type set');
     }
 
@@ -25,16 +23,16 @@ var BoogieWoogie = function(opts) {
 };
 
 BoogieWoogie.prototype = {
-    opts: null,
+    cfg: null,
 
     _load: function() {
-        var canvas = document.getElementById(this.opts.canvasId);
+        var canvas = document.getElementById(this.cfg.canvasId);
         if (!canvas) throw new Error('Could not get canvas element');
         var ctx = canvas.getContext('2d');
 
         var img = new Image();
-        img.src = 'data:image/' + this.opts.imgType + ';base64,' +
-            this.opts.imgSrc; // source is base64-encoded
+        img.src = 'data:image/' + this.cfg.imgType + ';base64,' +
+            this.cfg.imgSrc; // source is base64-encoded
 
         var that = this;
         img.onload = function() {
@@ -57,7 +55,25 @@ BoogieWoogie.prototype = {
 
             console.log('i=' + i, r, g, b, a);
         }
-
-        console.log('done');
     }
+};
+
+BoogieWoogie.prototype.ops = {
+    pus: function() {},
+    pop: function() {},
+    add: function() {},
+    sub: function() {},
+    mul: function() {},
+    div: function() {},
+    mod: function() {},
+    not: function() {},
+    grt: function() {},
+    poi: function() {},
+    swi: function() {},
+    dup: function() {},
+    rol: function() {},
+    inn: function() {},
+    inc: function() {},
+    ouc: function() {},
+    oun: function() {}
 };
