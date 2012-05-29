@@ -101,8 +101,7 @@ BoogieWoogie.prototype.ops = {
     },
     not: function() { // not
         if (this.stack.length < 1) return false;
-        if (this.stack.pop() !== 0) this.stack.push(0);
-        else this.stack.push(1);
+        this.stack.push(this.stack.pop() !== 0 ? 0 : 1);
         return true;
     },
     grt: function() { // greater
