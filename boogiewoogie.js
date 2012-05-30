@@ -63,7 +63,7 @@ BoogieWoogie.prototype._canvasToPiet = function(d) {
 };
 
 BoogieWoogie.prototype.ops = {
-    pus: function() { // push
+    psh: function() { // push
         this.stack.push(this.val);
         return true;
     },
@@ -120,7 +120,7 @@ BoogieWoogie.prototype.ops = {
         return true;
     },
 
-    poi: function() { // pointer
+    pnt: function() { // pointer
         return; // TODO
     },
 
@@ -138,19 +138,19 @@ BoogieWoogie.prototype.ops = {
         return; // TODO
     },
 
-    inn: function() { // in (number)
+    nin: function() { // in (number)
         return; // TODO
     },
 
-    inc: function() { // in (char)
+    cin: function() { // in (char)
         return; // TODO
     },
 
-    oun: function() { // out (number)
+    nou: function() { // out (number)
         return; // TODO
     },
 
-    ouc: function() { // out (char)
+    cou: function() { // out (char)
         return; // TODO
     }
 };
