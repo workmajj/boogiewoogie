@@ -1,19 +1,8 @@
-var BoogieWoogie = function(cfg) {
-    this.cfg = this.extend({
-        imgSrc: null,
-        imgType: null,
-        canvasId: 'program'
-    }, cfg);
-
-    if (!this.cfg.imgSrc || !this.cfg.imgType) {
-        throw new Error('No image source or image type set');
-    }
-
-    // TODO: move this to run/init once built
+var BoogieWoogie = function() {
     this.stack = [];
     this.val = 0;
 
-    this._load();
+    return this; // chainable
 };
 
 BoogieWoogie.prototype = {
@@ -22,12 +11,26 @@ BoogieWoogie.prototype = {
     val: null // current color block value
 };
 
-BoogieWoogie.prototype.extend = function(orig, delta) {
-    var obj = JSON.parse(JSON.stringify(orig));
-    for (var i in delta) {
-        if (delta.hasOwnProperty(i)) obj[i] = delta[i];
+BoogieWoogie.prototype.run = function(cfg) {
+    var extend = function(orig, delta) {
+        var obj = JSON.parse(JSON.stringify(orig));
+        for (var i in delta) {
+            if (delta.hasOwnProperty(i)) obj[i] = delta[i];
+        }
+        return obj;
+    };
+
+    this.cfg = extend({
+        imgSrc: null,
+        imgType: null,
+        canvasId: 'program' // TODO: move to constructor?
+    }, cfg);
+
+    if (!this.cfg.imgSrc || !this.cfg.imgType) {
+        throw new Error('No image source or image type set');
     }
-    return obj;
+
+    this._load();
 };
 
 BoogieWoogie.prototype._load = function() {

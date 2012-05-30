@@ -27,10 +27,9 @@ var src = 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAdCAIAAAAyxktbAAAABmJLR0QA/wD/AP+gva' +
 //     'IAAAAASUVORK5CYII='; // 25 pixels per codel
 var type = 'png';
 
-var broadway = new BoogieWoogie({
+var broadway = new BoogieWoogie().run({
     imgSrc: src,
-    imgType: type,
-    canvasId: 'program'
+    imgType: type
 });
 
 ////////////////////////////////////////////////////////////////////////////////
