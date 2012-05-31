@@ -2,12 +2,23 @@ var BoogieWoogie = function(opts) {
     this.canvasId = (opts && opts.canvasId) || 'program';
     this.debug = (opts && opts.debug) || false;
 
+    // interpreter state
+    this.stack = [];
+    this.val = 0;
+    this.dp = 'R'; // TODO: make a constant
+    this.cc = 'L'; // TODO: make a constant
+
     return this; // chainable
 };
 
 BoogieWoogie.prototype = {
     canvasId: null,
     debug: null,
+
+    stack: null,
+    val: null,
+    dp: null,
+    cc: null,
 
     imgType: null,
     imgSrc: null,
@@ -56,7 +67,7 @@ BoogieWoogie.prototype = {
 BoogieWoogie.prototype.opcodes = {
     nop: function() { // no-op
         return true;
-    }
+    },
 
     psh: function() { // push
         this.stack.push(this.val);
