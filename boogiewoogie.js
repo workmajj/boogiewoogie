@@ -65,7 +65,11 @@ BoogieWoogie.prototype._canvasToPiet = function(d) {
     }
 };
 
-BoogieWoogie.prototype.ops = {
+BoogieWoogie.prototype.op = function(opcode) {
+    return this.opcodes[opcode].call(this);
+};
+
+BoogieWoogie.prototype.opcodes = {
     psh: function() { // push
         this.stack.push(this.val);
         return true;
