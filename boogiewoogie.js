@@ -48,15 +48,26 @@ BoogieWoogie.prototype = {
         };
     },
 
+    code: null,
+
     _canvasToCode: function(d) {
+        this.code = new Array(d.width);
+        for (var i = 0; i < d.width; i++) {
+            this.code[i] = new Array(d.height);
+        }
+
         for (var i = 0, l = d.data.length; i < l; i += 4) {
+            var x = (i / 4) % d.width;
+            var y = Math.floor((i / 4) / d.width);
+
             var r = d.data[i];
             var g = d.data[i + 1];
             var b = d.data[i + 2];
-            var a = d.data[i + 3];
 
-            console.log('i=' + i, r, g, b, a);
+            this.code[x][y] = 'r=' + r + ', g=' + g + ', b=' + b; // FIXME
         }
+        
+        console.log(this.code);
     },
 
     _op: function(opcode) {
