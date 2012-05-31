@@ -54,6 +54,10 @@ BoogieWoogie.prototype = {
 };
 
 BoogieWoogie.prototype.opcodes = {
+    nop: function() { // no-op
+        return true;
+    }
+
     psh: function() { // push
         this.stack.push(this.val);
         return true;
