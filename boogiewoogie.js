@@ -1,72 +1,56 @@
-var BoogieWoogie = function() {
-    this.stack = [];
-    this.val = 0;
+var BoogieWoogie = function(opts) {
+    this.canvasId = (opts && opts.canvasId) || 'program';
+    this.debug = (opts && opts.debug) || false;
 
     return this; // chainable
 };
 
 BoogieWoogie.prototype = {
-    cfg: null,
-    stack: null,
-    val: null // current color block value
-};
+    canvasId: null,
+    debug: null,
 
-BoogieWoogie.prototype.run = function(cfg) {
-    var extend = function(orig, delta) {
-        var obj = JSON.parse(JSON.stringify(orig));
-        for (var i in delta) {
-            if (delta.hasOwnProperty(i)) obj[i] = delta[i];
+    imgType: null,
+    imgSrc: null,
+
+    load: function(cfg) {
+        if (!cfg.type || !cfg.src) throw new Error('No image type or source');
+
+        this.imgType = cfg.type;
+        this.imgSrc = cfg.src;
+
+        var canvas = document.getElementById(this.canvasId);
+        if (!canvas) throw new Error('Could not get canvas element');
+        var ctx = canvas.getContext('2d');
+
+        var that = this;
+
+        var img = new Image();
+        img.src = 'data:image/' + this.imgType + ';base64,' + this.imgSrc;
+        img.onload = function() {
+            canvas.setAttribute('width', img.width);
+            canvas.setAttribute('height', img.height);
+
+            ctx.drawImage(img, 0, 0);
+
+            var d = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            that._canvasToCode(d);
+        };
+    },
+
+    _canvasToCode: function(d) {
+        for (var i = 0, l = d.data.length; i < l; i += 4) {
+            var r = d.data[i];
+            var g = d.data[i + 1];
+            var b = d.data[i + 2];
+            var a = d.data[i + 3];
+
+            console.log('i=' + i, r, g, b, a);
         }
-        return obj;
-    };
+    },
 
-    this.cfg = extend({
-        imgSrc: null,
-        imgType: null,
-        canvasId: 'program' // TODO: move to constructor?
-    }, cfg);
-
-    if (!this.cfg.imgSrc || !this.cfg.imgType) {
-        throw new Error('No image source or image type set');
+    _op: function(opcode) {
+        return this.opcodes[opcode].call(this);
     }
-
-    this._load();
-};
-
-BoogieWoogie.prototype._load = function() {
-    var canvas = document.getElementById(this.cfg.canvasId);
-    if (!canvas) throw new Error('Could not get canvas element');
-    var ctx = canvas.getContext('2d');
-
-    var img = new Image();
-    img.src = 'data:image/' + this.cfg.imgType + ';base64,' +
-        this.cfg.imgSrc; // source is base64-encoded
-
-    var that = this;
-    img.onload = function() {
-        canvas.setAttribute('width', img.width);
-        canvas.setAttribute('height', img.height);
-
-        ctx.drawImage(img, 0, 0);
-
-        var d = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        that._canvasToPiet(d);
-    };
-};
-
-BoogieWoogie.prototype._canvasToPiet = function(d) {
-    for (var i = 0, l = d.data.length; i < l; i += 4) {
-        var r = d.data[i];
-        var g = d.data[i + 1];
-        var b = d.data[i + 2];
-        var a = d.data[i + 3];
-
-        console.log('i=' + i, r, g, b, a);
-    }
-};
-
-BoogieWoogie.prototype.op = function(opcode) {
-    return this.opcodes[opcode].call(this);
 };
 
 BoogieWoogie.prototype.opcodes = {
