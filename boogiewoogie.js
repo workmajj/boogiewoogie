@@ -52,21 +52,22 @@ BoogieWoogie.prototype = {
 
     _canvasToCode: function(d) {
         this.code = new Array(d.width);
-        for (var i = 0; i < d.width; i++) {
+        for (var i = 0, l = d.width; i < l; i++) {
             this.code[i] = new Array(d.height);
         }
 
-        for (var i = 0, l = d.data.length; i < l; i += 4) {
+        for (i = 0, l = d.data.length; i < l; i += 4) {
+            var hex = '#';
+            for (var j = 0; j < 3; j++) {
+                hex += d.data[i + j] === 0 ? '00' : d.data[i + j].toString(16);
+            }
+
             var x = (i / 4) % d.width;
             var y = Math.floor((i / 4) / d.width);
 
-            var r = d.data[i];
-            var g = d.data[i + 1];
-            var b = d.data[i + 2];
-
-            this.code[x][y] = 'r=' + r + ', g=' + g + ', b=' + b; // FIXME
+            this.code[x][y] = hex;
         }
-        
+
         console.log(this.code);
     },
 
