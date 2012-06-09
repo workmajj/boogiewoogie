@@ -46,7 +46,7 @@ BoogieWoogie.prototype = {
             var d = ctx.getImageData(0, 0, canvas.width, canvas.height);
             that._canvasToCode(d);
 
-            that._printCode();
+            that._go();
         };
     },
 
@@ -61,8 +61,8 @@ BoogieWoogie.prototype = {
         for (i = 0, l = d.data.length; i < l; i += 4) {
             var hex = '#';
             for (var j = 0; j < 3; j++) {
-                hex += (d.data[i + j] === 0) ? '00' :
-                    d.data[i + j].toString(16);
+                hex += (d.data[i + j] === 0) ?
+                    '00' : d.data[i + j].toString(16);
             }
 
             var x = (i / 4) % d.width;
@@ -70,6 +70,10 @@ BoogieWoogie.prototype = {
 
             this.code[x][y] = hex;
         }
+    },
+
+    _go: function() {
+        this._printCode(); // TODO: traversal logic actually goes here
     },
 
     _printCode: function() {
