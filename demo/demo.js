@@ -29,7 +29,7 @@ var type = 'png';
 
 var broadway = new BoogieWoogie({
     debug: false
-}).load({
+}).run({
     type: type,
     src: src
 });

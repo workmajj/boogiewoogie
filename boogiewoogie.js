@@ -23,7 +23,7 @@ BoogieWoogie.prototype = {
     imgType: null,
     imgSrc: null,
 
-    load: function(cfg) {
+    run: function(cfg) {
         if (!cfg.type || !cfg.src) throw new Error('No image type or source');
 
         this.imgType = cfg.type;
@@ -45,6 +45,8 @@ BoogieWoogie.prototype = {
 
             var d = ctx.getImageData(0, 0, canvas.width, canvas.height);
             that._canvasToCode(d);
+
+            that._printCode();
         };
     },
 
@@ -59,7 +61,8 @@ BoogieWoogie.prototype = {
         for (i = 0, l = d.data.length; i < l; i += 4) {
             var hex = '#';
             for (var j = 0; j < 3; j++) {
-                hex += d.data[i + j] === 0 ? '00' : d.data[i + j].toString(16);
+                hex += (d.data[i + j] === 0) ? '00' :
+                    d.data[i + j].toString(16);
             }
 
             var x = (i / 4) % d.width;
@@ -67,8 +70,16 @@ BoogieWoogie.prototype = {
 
             this.code[x][y] = hex;
         }
+    },
 
-        console.log(this.code);
+    _printCode: function() {
+        var that = this;
+
+        console.log(this.code.map(function(col) {
+            return col.map(function(px) {
+                return that.hexToNames[px];
+            });
+        }));
     },
 
     _op: function(opcode) {
