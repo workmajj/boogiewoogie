@@ -76,6 +76,31 @@ BoogieWoogie.prototype = {
     }
 };
 
+BoogieWoogie.prototype.hexToNames = {
+    '#ffffff': 'white',
+    '#000000': 'black',
+
+    '#ffc0c0': 'light red',
+    '#ff0000': 'red',
+    '#c00000': 'dark red',
+
+    '#ffffc0': 'light yellow',
+    '#ffff00': 'yellow',
+    '#c0c000': 'dark yellow',
+
+    '#c0ffc0': 'light green',
+    '#00ff00': 'green',
+    '#00c000': 'dark green',
+
+    '#c0ffff': 'light cyan',
+    '#00ffff': 'cyan',
+    '#0000c0': 'dark blue',
+
+    '#ffc0ff': 'light magenta',
+    '#ff00ff': 'magenta',
+    '#c000c0': 'dark magenta'
+};
+
 BoogieWoogie.prototype.opcodes = {
     nop: function() { // no-op
         return true;
