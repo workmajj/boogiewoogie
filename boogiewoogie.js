@@ -105,6 +105,10 @@ BoogieWoogie.prototype.hexToNames = {
 
     '#c0ffff': 'light cyan',
     '#00ffff': 'cyan',
+    '#00c0c0': 'dark cyna',
+
+    '#c0c0ff': 'light blue',
+    '#0000ff': 'blue',
     '#0000c0': 'dark blue',
 
     '#ffc0ff': 'light magenta',
