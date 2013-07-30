@@ -86,6 +86,17 @@ BoogieWoogie.prototype = {
         }));
     },
 
+    _changeToOpcode: function(from, to) {
+        var COLORS = [
+            ['#ffc0c0', '#ffffc0', '#c0ffc0', '#c0ffff', '#c0c0ff', '#ffc0ff'],
+            ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'],
+            ['#c00000', '#c0c000', '#00c000', '#00c0c0', '#0000c0', '#c000c0']
+        ];
+
+        
+
+    },
+
     _op: function(opcode) {
         return this.opcodes[opcode].call(this);
     }
@@ -109,7 +120,7 @@ BoogieWoogie.prototype.hexToNames = {
 
     '#c0ffff': 'light cyan',
     '#00ffff': 'cyan',
-    '#00c0c0': 'dark cyna',
+    '#00c0c0': 'dark cyan',
 
     '#c0c0ff': 'light blue',
     '#0000ff': 'blue',
